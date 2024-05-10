@@ -1,10 +1,4 @@
-**** 
-
-
-### Ex. No. :8 CONFIGURING ANALOG PORT TO INTEFACE AN ANALOG SENSOR AND READ THE VALUES USING SERIAL PORT
-## Date: 
-###  
-
+### Ex. No. :7 CONFIGURING ANALOG PORT TO INTEFACE AN ANALOG SENSOR AND READ THE VALUES USING SERIAL PORT
 ## Aim: 
 To configure ADC channel for interfacing an analog sensor and read the values on the com port 
 ## Components required:
@@ -150,17 +144,52 @@ This module also includes a potentiometer that will fix the threshold value, & t
 
 
 ##  Program 
+```
+Developed by:A.SASIDHARAN
+Regster Number:212221240049
+````
+```py
+
+#include "main.h"
+#include"stdio.h"
+uint32_t adcvalue;
+#if defined (_ICCARM_) || defined (__ARMCC_VERSION)
+#define PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)
+#elif defined(_GNUC_)
+   
+#define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
+#endif  
 
 
- 
+PUTCHAR_PROTOTYPE
+{
+
+  HAL_UART_Transmit(&huart1, (uint8_t *)&ch, 1, 0xFFFF);
+
+  return ch;
+}
+
+while(1)
+{
+
+	HAL_ADC_Start(&hadc1);
+			HAL_ADC_PollForConversion(&hadc1,100);
+			adcvalue = HAL_ADC_GetValue(&hadc1);
+			HAL_ADC_Stop(&hadc1);
+			HAL_Delay(500);
+			printf("ADC VALUE:%ld\n",adcvalue);
+
+}
+```
+## Output  :
+![pmcexp8 1](https://github.com/Rajeshanbu/Ex.-No.8-CONFIGURING-ANALOG-PORT-TO-INTEFACE-AN-ANALOG-SENSOR-AND-READ-THE-VALUES-USING-SERIAL-PORT/assets/118924713/63864bbe-3507-4476-877f-a2bc6ce0c7a5)
+
+![exppmc8 2](https://github.com/Rajeshanbu/Ex.-No.8-CONFIGURING-ANALOG-PORT-TO-INTEFACE-AN-ANALOG-SENSOR-AND-READ-THE-VALUES-USING-SERIAL-PORT/assets/118924713/42ed3e8c-71db-4931-9001-36773cadc9f3)
+
+![326683428-f5e78dba-9ff8-4b8c-9c81-b5e07569c130](https://github.com/sasidharan403/Ex.-No.8-CONFIGURING-ANALOG-PORT-TO-INTEFACE-AN-ANALOG-SENSOR-AND-READ-THE-VALUES-USING-SERIAL-PORT/assets/94154712/be40b0c5-7a2b-4f8a-8103-bd6d0a856dac)
+
+
 
 ## Result :
- 
-## Output  :
 
-
-
-
-
-
-****
+Configured an analog port for stm 32 controller and read the values on the serial port successfully.
